@@ -1,0 +1,36 @@
+<?xml version='1.0' ?>
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="map_name" default="my_map" description="Map name (must match maps/ directory name)"/>
+  <arg name="ignition_version" default="6"/>
+
+  <!-- RMF Core (Traffic Schedule, RViz, Dispatcher) -->
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value="$(find-pkg-share rmf_template_gz)/config/template.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_template_maps)/maps/$(var map_name)/$(var map_name).building.yaml"/>
+  </include>
+
+  <!-- Fleet Adapter (Simulation mode) -->
+  <node pkg="rmf_template_fleet_adapter"
+        exec="fleet_adapter"
+        args="-c $(find-pkg-share rmf_template)/config/robot_config.yaml
+              -n $(find-pkg-share rmf_template_maps)/maps/$(var map_name)/nav_graphs/0.yaml
+              -sim"
+        output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+  <!-- Gazebo Simulation -->
+  <include file="$(find-pkg-share rmf_demos_gz)/simulation.launch.xml">
+    <arg name="map_package" value="rmf_template_maps"/>
+    <arg name="map_name" value="$(var map_name)"/>
+    <arg name="ignition_version" value="$(var ignition_version)"/>
+  </include>
+
+  <!-- Static TF: map frame for RViz -->
+  <node pkg="tf2_ros" exec="static_transform_publisher"
+        args="0 0 0 0 0 0 map world"
+        name="map_to_world_tf"/>
+
+</launch>

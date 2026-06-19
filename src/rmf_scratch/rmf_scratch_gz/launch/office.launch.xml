@@ -1,0 +1,38 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="failover_mode" default="false"/>
+  <arg name="use_tpe" default="false"/>
+  <arg name="ignition_version" default='6'/>
+
+  <!-- Common RMF launch (scheduling, RViz) - kendi haritamızla -->
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value="$(find-pkg-share rmf_scratch_gz)/config/office.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_scratch_maps)/office/office.building.yaml"/>
+    <arg name="dashboard_config_file" value="$(find-pkg-share rmf_demos_dashboard_resources)/office/dashboard_config.json"/>
+  </include>
+
+  <!-- TinyRobot fleet adapter - kendi nav graph'ımızla -->
+  <group>
+    <include file="$(find-pkg-share rmf_scratch_fleet_adapter)/launch/fleet_adapter.launch.xml">
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="nav_graph_file" value="$(find-pkg-share rmf_scratch_maps)/maps/office/nav_graphs/0.yaml"/>
+      <arg name="config_file" value="$(find-pkg-share rmf_scratch)/config/tinyRobot_config.yaml"/>
+    </include>
+  </group>
+
+  <!-- Simulation launch - kendi haritamızı kullanıyoruz -->
+  <include file="$(find-pkg-share rmf_demos_gz)/simulation.launch.xml">
+    <arg name="map_package" value="rmf_scratch_maps"/>
+    <arg name="map_name" value="office"/>
+    <arg name="ignition_version" value="$(var ignition_version)"/>
+  </include>
+
+  <!-- Static transform: map frame for RViz -->
+  <node pkg="tf2_ros" exec="static_transform_publisher"
+        args="0 0 0 0 0 0 map world"
+        name="map_to_world_tf"/>
+
+</launch>

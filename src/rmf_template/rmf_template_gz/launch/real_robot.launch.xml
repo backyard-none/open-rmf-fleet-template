@@ -1,0 +1,29 @@
+<?xml version='1.0' ?>
+<launch>
+  <!-- Real robot launch (no Gazebo) -->
+  <arg name="use_sim_time" default="false"/>
+  <arg name="map_name" default="my_map"/>
+
+  <!-- RMF Core -->
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value="$(find-pkg-share rmf_template_gz)/config/template.rviz"/>
+    <arg name="config_file" value="$(find-pkg-share rmf_template_maps)/maps/$(var map_name)/$(var map_name).building.yaml"/>
+  </include>
+
+  <!-- Fleet Adapter (Real robot mode - uses HTTP or LoRa API) -->
+  <!-- TODO: Change RobotClientAPI import in fleet_adapter.py to match your robot's API -->
+  <node pkg="rmf_template_fleet_adapter"
+        exec="fleet_adapter"
+        args="-c $(find-pkg-share rmf_template)/config/robot_config.yaml
+              -n $(find-pkg-share rmf_template_maps)/maps/$(var map_name)/nav_graphs/0.yaml"
+        output="screen">
+    <param name="use_sim_time" value="$(var use_sim_time)"/>
+  </node>
+
+  <!-- Static TF -->
+  <node pkg="tf2_ros" exec="static_transform_publisher"
+        args="0 0 0 0 0 0 map world"
+        name="map_to_world_tf"/>
+
+</launch>

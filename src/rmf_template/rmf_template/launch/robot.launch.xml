@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- RMF Template Launch File -->
+  <!-- TODO: Adjust for your environment -->
+
+  <!-- RMF Core (Traffic Schedule, Dispatcher) -->
+  <include file="$(find-pkg-share rmf_demos)/launch/common.launch.xml">
+    <arg name="use_sim_time" value="false"/>
+    <arg name="viz_config_file" value=""/>
+  </include>
+
+  <!-- Fleet Adapter -->
+  <node pkg="rmf_template_fleet_adapter" exec="fleet_adapter"
+        args="-c $(find-pkg-share rmf_template)/config/robot_config.yaml
+              -n $(find-pkg-share rmf_template_maps)/maps/my_map/nav_graphs/0.yaml"
+        output="screen"/>
+
+</launch>

@@ -1,0 +1,81 @@
+# My Robot Fleet - Configuration File
+# Fill in the TODO sections with your robot's actual values
+
+rmf_fleet:
+  name: "my_robot_fleet"            # TODO: Your fleet name
+
+  fleet_manager:
+    ip: "127.0.0.1"                 # TODO: Your Fleet Manager IP
+    port: 22011                     # TODO: Your Fleet Manager port
+    user: "admin"                   # TODO: API username
+    password: "password"            # TODO: API password
+
+  limits:
+    linear: [0.5, 0.75]             # [max_velocity m/s, max_acceleration m/s²]
+    angular: [0.6, 2.0]             # [max_velocity rad/s, max_acceleration rad/s²]
+
+  profile:
+    footprint: 0.3                  # Robot radius in metres
+    vicinity: 0.5                   # Safety zone radius in metres
+
+  reversible: true                  # Can the robot drive backwards?
+
+  battery_system:
+    voltage: 24.0                   # TODO: Battery voltage (V)
+    capacity: 40.0                  # TODO: Battery capacity (Ah)
+    charging_current: 10.0          # TODO: Charging current (A)
+
+  mechanical_system:
+    mass: 50.0                      # TODO: Robot mass (kg)
+    moment_of_inertia: 20.0         # TODO: Moment of inertia (kg·m²)
+    friction_coefficient: 0.22      # TODO: Rolling friction
+
+  ambient_system:
+    power: 20.0                     # Idle power consumption (W)
+
+  tool_system:
+    power: 0.0                      # TODO: Tool power consumption (W)
+
+  recharge_threshold: 0.10          # Recharge when battery drops below 10%
+  recharge_soc: 1.0                 # Charge up to 100%
+  account_for_battery_drain: true
+  publish_fleet_state: 10           # Hz
+
+  task_capabilities:
+    finishing_request: "park"       # What robot does after task: park / charge / nothing
+    loop: true                      # Robot can do loop/patrol tasks
+    delivery: true                  # Robot can do delivery tasks
+    clean: false                    # Robot can do cleaning tasks
+
+# -----------------------------------------------------------------------
+# Robots in this fleet
+# Add one entry per robot
+# -----------------------------------------------------------------------
+robots:
+  Robot1:                           # TODO: Change to your robot's name
+    robot_config:
+      max_delay: 15.0               # Seconds before RMF replans the route
+
+    rmf_config:
+      start:
+        map_name: "L1"              # TODO: Map level name (matches nav_graph)
+        waypoint: "start_point"     # TODO: Starting waypoint name
+        orientation: 0.0            # Starting orientation in radians
+
+      charger:
+        waypoint: "charger"         # TODO: Charger waypoint name
+
+      robot_state_update_frequency: 10  # Hz
+
+  # TODO: Add more robots below if needed
+  # Robot2:
+  #   robot_config:
+  #     max_delay: 15.0
+  #   rmf_config:
+  #     start:
+  #       map_name: "L1"
+  #       waypoint: "start_point_2"
+  #       orientation: 0.0
+  #     charger:
+  #       waypoint: "charger_2"
+  #     robot_state_update_frequency: 10

@@ -1,0 +1,3 @@
+[submodule "src/rmf_demos"]
+	path = src/rmf_demos
+	url = https://github.com/open-rmf/rmf_demos.git

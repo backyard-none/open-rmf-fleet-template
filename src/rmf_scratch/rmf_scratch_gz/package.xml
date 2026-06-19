@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>rmf_scratch_gz</name>
+  <version>0.1.0</version>
+  <description>Launch files for rmf_scratch project using Gazebo simulator</description>
+  <maintainer email="you@email.com">You</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>rmf_demos</exec_depend>
+  <exec_depend>rmf_building_sim_gz_plugins</exec_depend>
+  <exec_depend>rmf_robot_sim_gz_plugins</exec_depend>
+  <exec_depend>launch_xml</exec_depend>
+  <exec_depend>ignition-fortress</exec_depend>
+  <exec_depend>ros_ign_bridge</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

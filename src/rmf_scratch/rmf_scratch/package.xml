@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>rmf_scratch</name>
+  <version>0.1.0</version>
+  <description>Main package for rmf_scratch project - configs and launch files</description>
+  <maintainer email="you@email.com">You</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

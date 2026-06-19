@@ -1,0 +1,28 @@
+# ROS2 / Colcon build artifacts - DO NOT commit
+build/
+install/
+log/
+
+# Log files
+*.log
+web_server.log
+.rmf_schedule_node.yaml
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated map files (auto-generated during colcon build, no need to commit)
+src/rmf_scratch/rmf_scratch_maps/maps/*/nav_graphs/
+src/rmf_scratch/rmf_scratch_maps/maps/*/*.world
