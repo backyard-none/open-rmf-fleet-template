@@ -13,7 +13,7 @@ rmf-learning/
     └── rmf_scratch/            # Our custom minimal fleet system
         ├── rmf_scratch/                 # Robot config (speeds, battery, waypoints)
         ├── rmf_scratch_maps/            # Office map (Traffic Editor)
-        ├── rmf_scratch_fleet_adapter/   # Custom Fleet Adapter (100% original!)
+        ├── rmf_scratch_fleet_adapter/   # Custom Fleet Adapter 
         ├── rmf_scratch_tasks/           # Task dispatcher (patrol)
         ├── rmf_scratch_gz/              # Gazebo + RViz launcher
         └── rmf_scratch_assets/          # 3D models
